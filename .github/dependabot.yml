@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # Keep Docker Compose dependencies up-to-date
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Optional: Limit which images to update
+    allow:
+      # Only update the application image
+      - dependency-name: "app"
+    # Optional: Group all updates together
+    groups:
+      dependencies:
+        patterns:
+          - "*"
