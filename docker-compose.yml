@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  app:
+    image: node:16.14.0
+    container_name: demo-app
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: npm start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:14.2
+    container_name: demo-db
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: app
+      POSTGRES_DB: demo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:6.2.6
+    container_name: demo-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
